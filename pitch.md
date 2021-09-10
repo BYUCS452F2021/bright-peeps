@@ -23,3 +23,27 @@ The proposed tech stack is as follows (open and subject to change):
     - Vue.js?
     - React?
     - Angular?
+
+## BOLTS
+
+### Business
+
+Simple, open-source business plan. Our software will be available free-of-charge for users, and its content will be user generated. We can have a donatinon system in place too, so we can fund the app's hosting and development.
+
+### Operation
+
+Open-source operation. The Bright Peeps foundation will head development, but the community can also help when needed/wanted.
+
+### Legal
+
+The business will be a Utah LLC.
+
+### Technical
+
+1. Design and Develop database
+2. Build backend
+3. Build front-end
+
+### Social
+
+We will gain customers through advertising on campus, although relying mainly on word of mouth. As we grow, we'll establish a marketing department to use social media.
