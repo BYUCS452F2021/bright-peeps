@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 
-namespace BrightPeeps.DataAccess.SqlServer
+namespace BrightPeeps.DataAccess.MySql
 {
     public sealed class PersonService : IDaoService<Person>
     {

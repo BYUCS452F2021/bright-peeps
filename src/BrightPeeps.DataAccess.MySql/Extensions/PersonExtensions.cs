@@ -1,7 +1,7 @@
 using BrightPeeps.Core.Models;
 using Lucene.Net.Documents;
 
-namespace BrightPeeps.DataAccess.SqlServer.Extensions
+namespace BrightPeeps.DataAccess.MySql.Extensions
 {
     public static class PersonExtensions
     {

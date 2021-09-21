@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightPeeps.Core", "BrightPeeps.Core\BrightPeeps.Core.csproj", "{091D8DF6-593C-4A08-B0F0-A70A366D08E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightPeeps.DataAccess.SqlServer", "BrightPeeps.DataAccess.SqlServer\BrightPeeps.DataAccess.SqlServer.csproj", "{BA2F7052-6A5D-435B-B819-1AEDF0CDFF8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightPeeps.DataAccess.MySql", "BrightPeeps.DataAccess.MySql\BrightPeeps.DataAccess.MySql.csproj", "{BA2F7052-6A5D-435B-B819-1AEDF0CDFF8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrightPeeps.Api", "BrightPeeps.Api\BrightPeeps.Api.csproj", "{390137BA-AD12-451C-9C30-E2E9A20B205F}"
 EndProject

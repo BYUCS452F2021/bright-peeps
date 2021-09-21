@@ -5,22 +5,23 @@ using System.Collections.Generic;
 using System;
 using BrightPeeps.Core.Services;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
-namespace BrightPeeps.DataAccess.SqlServer
+namespace BrightPeeps.DataAccess.MySql
 {
-    public class SqlServerDataAccessService : ISqlDataAccessService
+    public class MySqlDataAccessService : ISqlDataAccessService
     {
-        private SqlConnection Connection;
+        private MySqlConnection Connection;
 
         public async Task Configure(string connectionString)
         {
-            Connection = new System.Data.SqlClient.SqlConnection(connectionString);
+            Connection = new MySqlConnection(connectionString);
 
             await TestConnection();
             await ConfigureTablesIfNeeded();
         }
 
-        ~SqlServerDataAccessService()
+        ~MySqlDataAccessService()
         {
             Connection.Dispose();
         }
@@ -39,7 +40,7 @@ namespace BrightPeeps.DataAccess.SqlServer
         {
             try
             {
-                var result = Connection.Query("SELECT @@version AS version;");
+                var result = Connection.Query("CALL `connection-test`");
             }
             catch (System.Exception e)
             {

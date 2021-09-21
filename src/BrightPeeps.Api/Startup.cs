@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BrightPeeps.Core.Services;
-using BrightPeeps.DataAccess.SqlServer;
+using BrightPeeps.DataAccess.MySql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +35,7 @@ namespace BrightPeeps.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BrightPeeps.Api", Version = "v1" });
             });
 
-            services.AddSingleton<ISqlDataAccessService, SqlServerDataAccessService>();
+            services.AddSingleton<ISqlDataAccessService, MySqlDataAccessService>();
             services.AddSingleton<PersonService>();
 
         }
@@ -56,7 +56,7 @@ namespace BrightPeeps.Api
 
             // Configure Services
             app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
-                connectionString: Configuration["AzureSqlServerDb:ConnectionString"]
+                connectionString: Configuration["AwsMySqlDb:ConnectionString"]
             ).GetAwaiter().GetResult();
 
             app.ApplicationServices.GetService<PersonService>().Configure(

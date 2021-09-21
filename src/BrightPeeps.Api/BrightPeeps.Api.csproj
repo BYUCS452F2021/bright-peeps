@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BrightPeeps.Core\BrightPeeps.Core.csproj" />
-    <ProjectReference Include="..\BrightPeeps.DataAccess.SqlServer\BrightPeeps.DataAccess.SqlServer.csproj" />
+    <ProjectReference Include="..\BrightPeeps.DataAccess.MySql\BrightPeeps.DataAccess.MySql.csproj" />
   </ItemGroup>
 
 </Project>
