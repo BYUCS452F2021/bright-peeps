@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 namespace BrightPeeps.Api
 {
@@ -18,6 +21,17 @@ namespace BrightPeeps.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    if (context.HostingEnvironment.IsDevelopment())
+                    {
+                        var _config = config.Build();
+                        var secretClient = new SecretClient(
+                            vaultUri: new Uri($"https://{_config["KeyVaultName"]}.vault.azure.net"),
+                            credential: new DefaultAzureCredential()
+                        );
+                        config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
+                    }
+                }).ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
 }
