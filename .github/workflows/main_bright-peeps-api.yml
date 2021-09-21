@@ -23,15 +23,14 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        working-directory: src/BrightPeeps.Api
         run: dotnet build --configuration Release
+        working-directory: src/BrightPeeps.Api
 
       - name: dotnet publish
-        working-directory: src/BrightPeeps.Api
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: src/BrightPeeps.Api
 
       - name: Upload artifact for deployment job
-        working-directory: src/BrightPeeps.Api
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
