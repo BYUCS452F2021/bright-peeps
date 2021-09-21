@@ -56,7 +56,7 @@ namespace BrightPeeps.Api
 
             // Configure Services
             app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
-                connectionString: Configuration.GetConnectionString("AzureSqlServerDb")
+                connectionString: Configuration["AzureSqlServerDb:ConnectionString"]
             ).GetAwaiter().GetResult();
 
             app.ApplicationServices.GetService<PersonService>().Configure(
