@@ -38,6 +38,13 @@ namespace BrightPeeps.Api
             services.AddSingleton<ISqlDataAccessService, MySqlDataAccessService>();
             services.AddSingleton<PersonService>();
 
+            services.AddCors(cors => cors.AddPolicy("Permissive", builder =>
+            {
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+            }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,11 +72,9 @@ namespace BrightPeeps.Api
             ).GetAwaiter().GetResult();
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseCors("Permissive");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
