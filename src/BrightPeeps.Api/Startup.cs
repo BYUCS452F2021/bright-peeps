@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BrightPeeps.Core.Services;
-using BrightPeeps.DataAccess.MySql;
+using BrightPeeps.DataAccess.AzureSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace BrightPeeps.Api
@@ -34,7 +27,7 @@ namespace BrightPeeps.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BrightPeeps.Api", Version = "v1" });
             });
 
-            services.AddSingleton<ISqlDataAccessService, MySqlDataAccessService>();
+            services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>();
             services.AddSingleton<PersonService>();
 
             services.AddCors(cors => cors.AddPolicy("Permissive", builder =>
@@ -62,9 +55,9 @@ namespace BrightPeeps.Api
             });
 
             // Configure Services
-            // app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
-            //     connectionString: Configuration["AwsMySqlDb:ConnectionString"]
-            // ).GetAwaiter().GetResult();
+            app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
+                connectionString: Configuration["AzureSqlDb:ConnectionString"]
+            ).GetAwaiter().GetResult();
 
             app.ApplicationServices.GetService<PersonService>().Configure(
                 dataAccessService: app.ApplicationServices.GetService<ISqlDataAccessService>(),

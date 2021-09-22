@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
-using BrightPeeps.DataAccess.MySql.Extensions;
+using BrightPeeps.DataAccess.AzureSql.Extensions;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
@@ -12,7 +12,7 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
 
-namespace BrightPeeps.DataAccess.MySql
+namespace BrightPeeps.DataAccess.AzureSql
 {
     internal sealed class PersonSearchService : ISearchService<Person>
     {

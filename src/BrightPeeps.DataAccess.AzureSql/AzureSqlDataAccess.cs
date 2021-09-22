@@ -5,23 +5,22 @@ using System.Collections.Generic;
 using System;
 using BrightPeeps.Core.Services;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 
-namespace BrightPeeps.DataAccess.MySql
+namespace BrightPeeps.DataAccess.AzureSql
 {
-    public class MySqlDataAccessService : ISqlDataAccessService
+    public class AzureSqlDataAccessService : ISqlDataAccessService
     {
-        private MySqlConnection Connection;
+        private SqlConnection Connection;
 
         public async Task Configure(string connectionString)
         {
-            Connection = new MySqlConnection(connectionString);
+            Connection = new SqlConnection(connectionString);
 
             await TestConnection();
             await ConfigureTablesIfNeeded();
         }
 
-        ~MySqlDataAccessService()
+        ~AzureSqlDataAccessService()
         {
             Connection.Dispose();
         }
@@ -36,10 +35,9 @@ namespace BrightPeeps.DataAccess.MySql
             return Connection.QueryAsync<T>(query, parameters);
         }
 
-        private Task TestConnection()
+        private async Task TestConnection()
         {
-            var result = Connection.Query("CALL `connection-test`");
-            return Task.CompletedTask;
+            var result = await Connection.QueryAsync("EXEC [dbo].[connection-test]");
         }
 
         private async Task ConfigureTablesIfNeeded()

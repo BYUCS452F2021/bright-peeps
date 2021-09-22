@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BrightPeeps.Core\BrightPeeps.Core.csproj" />
-    <ProjectReference Include="..\BrightPeeps.DataAccess.MySql\BrightPeeps.DataAccess.MySql.csproj" />
+    <ProjectReference Include="..\BrightPeeps.DataAccess.AzureSql\BrightPeeps.DataAccess.AzureSql.csproj" />
   </ItemGroup>
 
 </Project>

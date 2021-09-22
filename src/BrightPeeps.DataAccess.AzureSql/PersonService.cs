@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 
-namespace BrightPeeps.DataAccess.MySql
+namespace BrightPeeps.DataAccess.AzureSql
 {
     public sealed class PersonService : IDaoService<Person>
     {

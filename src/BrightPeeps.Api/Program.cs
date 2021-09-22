@@ -21,18 +21,20 @@ namespace BrightPeeps.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                // .ConfigureAppConfiguration((context, config) =>
-                // {
-                //     if (context.HostingEnvironment.IsDevelopment())
-                //     {
-                //         var _config = config.Build();
-                //         var secretClient = new SecretClient(
-                //             vaultUri: new Uri($"https://{_config["KeyVaultName"]}.vault.azure.net"),
-                //             credential: new DefaultAzureCredential()
-                //         );
-                //         config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
-                //     }
-                // })
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    if (context.HostingEnvironment.IsDevelopment())
+                    {
+                        var _config = config.Build();
+                        var secretClient = new SecretClient(
+                            vaultUri: new Uri(
+                                $"https://{_config["AzureSecrets:KeyVaultName"]}.vault.azure.net"
+                            ),
+                            credential: new DefaultAzureCredential()
+                        );
+                        config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
+                    }
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
@@ -40,7 +42,6 @@ namespace BrightPeeps.Api
                     {
                         logging.ClearProviders();
                         logging.AddConsole();
-                        // logging.AddAzureWebAppDiagnostics();
                     });
                 });
     }
