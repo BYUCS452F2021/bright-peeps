@@ -32,6 +32,16 @@ namespace BrightPeeps.Api
                         );
                         config.AddAzureKeyVault(secretClient, new KeyVaultSecretManager());
                     }
-                }).ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConsole();
+                        logging.AddAzureWebAppDiagnostics();
+                    });
+                });
     }
 }
