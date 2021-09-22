@@ -1,7 +1,7 @@
 using BrightPeeps.Core.Models;
 using Lucene.Net.Documents;
 
-namespace BrightPeeps.DataAccess.AzureSql.Extensions
+namespace BrightPeeps.Data.LuceneSearch.Extensions
 {
     public static class PersonExtensions
     {

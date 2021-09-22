@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
-using BrightPeeps.DataAccess.AzureSql.Extensions;
+using BrightPeeps.Data.LuceneSearch.Extensions;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Index;
@@ -12,9 +12,9 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
 
-namespace BrightPeeps.DataAccess.AzureSql
+namespace BrightPeeps.Data.LuceneSearch
 {
-    internal sealed class PersonSearchService : ISearchService<Person>
+    public sealed class PersonSearchService : ISearchService<Person>
     {
         private const LuceneVersion MatchVersion = LuceneVersion.LUCENE_48;
 

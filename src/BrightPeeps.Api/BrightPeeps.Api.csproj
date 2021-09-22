@@ -15,7 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BrightPeeps.Core\BrightPeeps.Core.csproj" />
-    <ProjectReference Include="..\BrightPeeps.DataAccess.AzureSql\BrightPeeps.DataAccess.AzureSql.csproj" />
+    <ProjectReference Include="..\BrightPeeps.Data.AzureSql\BrightPeeps.Data.AzureSql.csproj" />
+    <ProjectReference Include="..\BrightPeeps.Data.LuceneSearch\BrightPeeps.Data.LuceneSearch.csproj" />
   </ItemGroup>
 
 </Project>

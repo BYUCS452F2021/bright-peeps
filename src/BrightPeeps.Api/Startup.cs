@@ -1,5 +1,7 @@
+using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
-using BrightPeeps.DataAccess.AzureSql;
+using BrightPeeps.Data.AzureSql;
+using BrightPeeps.Data.LuceneSearch;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +29,15 @@ namespace BrightPeeps.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BrightPeeps.Api", Version = "v1" });
             });
 
-            services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>();
-            services.AddSingleton<PersonService>();
+            services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
+                (services) => new AzureSqlDataAccessService(
+                    connectionString: Configuration["AzureSqlDb:ConnectionString"]
+            ));
+
+            services.AddSingleton<ISearchService<Person>, PersonSearchService>(
+                (services) => new PersonSearchService(
+                    personSearchDirectory: Configuration["LuceneSearch:PersonDirectory"]
+            ));
 
             services.AddCors(cors => cors.AddPolicy("Permissive", builder =>
             {
@@ -53,16 +62,6 @@ namespace BrightPeeps.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bright Peeps API v1");
                 c.RoutePrefix = string.Empty;
             });
-
-            // Configure Services
-            app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
-                connectionString: Configuration["AzureSqlDb:ConnectionString"]
-            ).GetAwaiter().GetResult();
-
-            app.ApplicationServices.GetService<PersonService>().Configure(
-                dataAccessService: app.ApplicationServices.GetService<ISqlDataAccessService>(),
-                searchDirectory: Configuration["LuceneSearch:PersonDirectory"]
-            ).GetAwaiter().GetResult();
 
             app.UseHttpsRedirection();
             app.UseRouting();

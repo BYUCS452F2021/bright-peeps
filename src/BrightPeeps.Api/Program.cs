@@ -28,7 +28,7 @@ namespace BrightPeeps.Api
                         var _config = config.Build();
                         var secretClient = new SecretClient(
                             vaultUri: new Uri(
-                                $"https://{_config["AzureSecrets:KeyVaultName"]}.vault.azure.net"
+                                $"https://{_config["AzureConfigurations:KeyVaultName"]}.vault.azure.net"
                             ),
                             credential: new DefaultAzureCredential()
                         );

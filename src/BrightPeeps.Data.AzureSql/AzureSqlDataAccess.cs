@@ -6,18 +6,17 @@ using System;
 using BrightPeeps.Core.Services;
 using System.Threading.Tasks;
 
-namespace BrightPeeps.DataAccess.AzureSql
+namespace BrightPeeps.Data.AzureSql
 {
     public class AzureSqlDataAccessService : ISqlDataAccessService
     {
         private SqlConnection Connection;
 
-        public async Task Configure(string connectionString)
+        public AzureSqlDataAccessService(string connectionString)
         {
             Connection = new SqlConnection(connectionString);
 
-            await TestConnection();
-            await ConfigureTablesIfNeeded();
+            Task.Run(() => TestConnection());
         }
 
         ~AzureSqlDataAccessService()
@@ -38,12 +37,6 @@ namespace BrightPeeps.DataAccess.AzureSql
         private async Task TestConnection()
         {
             var result = await Connection.QueryAsync("EXEC [dbo].[connection-test]");
-        }
-
-        private async Task ConfigureTablesIfNeeded()
-        {
-            // TODO: ConfigureTables after choosing schema.
-            await Task.Delay(10);
         }
     }
 }
