@@ -38,15 +38,7 @@ namespace BrightPeeps.DataAccess.MySql
 
         private Task TestConnection()
         {
-            try
-            {
-                var result = Connection.Query("CALL `connection-test`");
-            }
-            catch (System.Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
+            var result = Connection.Query("CALL `connection-test`");
             return Task.CompletedTask;
         }
 

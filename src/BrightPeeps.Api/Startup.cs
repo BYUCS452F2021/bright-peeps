@@ -28,7 +28,6 @@ namespace BrightPeeps.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,18 +52,19 @@ namespace BrightPeeps.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bright Peeps API v1");
-                    c.RoutePrefix = string.Empty;
-                });
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bright Peeps API v1");
+                c.RoutePrefix = string.Empty;
+            });
+
             // Configure Services
-            app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
-                connectionString: Configuration["AwsMySqlDb:ConnectionString"]
-            ).GetAwaiter().GetResult();
+            // app.ApplicationServices.GetService<ISqlDataAccessService>().Configure(
+            //     connectionString: Configuration["AwsMySqlDb:ConnectionString"]
+            // ).GetAwaiter().GetResult();
 
             app.ApplicationServices.GetService<PersonService>().Configure(
                 dataAccessService: app.ApplicationServices.GetService<ISqlDataAccessService>(),
