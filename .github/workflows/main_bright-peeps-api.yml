@@ -9,8 +9,9 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  AZURE_WEBAPP_PACKAGE_PATH: './src/BrightPeeps.Api/'
+defaults: 
+  run:
+    working-directory: src/BrightPeeps.Api
 
 jobs:
   build:
@@ -57,4 +58,4 @@ jobs:
           app-name: 'bright-peeps-api'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8E0AC826A1A24CE49CD78DFCFD7CFE5A }}
-          package: './src/BrightPeeps.Api'
+          package: .
