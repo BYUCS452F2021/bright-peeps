@@ -2,6 +2,7 @@ using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 using BrightPeeps.Data.AzureSql;
 using BrightPeeps.Data.LuceneSearch;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,14 +31,25 @@ namespace BrightPeeps.Api
             });
 
             services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
-                (services) => new AzureSqlDataAccessService(
-                    connectionString: Configuration["AzureSqlDb:ConnectionString"]
-            ));
+                (services) =>
+                {
+                    var dataAccess = new AzureSqlDataAccessService(
+                        connectionString: Configuration["AzureSqlDb:ConnectionString"]
+                    );
 
-            services.AddSingleton<ISearchService<Person>, PersonSearchService>(
+                    dataAccess.TestConnection()
+                        .GetAwaiter().GetResult(); // Runs async method synchronously.
+
+                    return dataAccess;
+                }
+            );
+
+            services.AddSingleton<ISearchService<PersonProfile>, PersonSearchService>(
                 (services) => new PersonSearchService(
                     personSearchDirectory: Configuration["LuceneSearch:PersonDirectory"]
             ));
+
+            services.AddMediatR(typeof(Startup).Assembly);
 
             services.AddCors(cors => cors.AddPolicy("Permissive", builder =>
             {

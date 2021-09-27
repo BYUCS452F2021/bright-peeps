@@ -5,7 +5,7 @@ namespace BrightPeeps.Data.LuceneSearch.Extensions
 {
     public static class PersonExtensions
     {
-        public static Document ToDocument(this Person model)
+        public static Document ToDocument(this PersonProfile model)
         {
             // TODO: Define what data needs to be indexed per Person model for searching purposes.
             return new Document
@@ -21,7 +21,7 @@ namespace BrightPeeps.Data.LuceneSearch.Extensions
                     store: Field.Store.YES
                 ),
                 new TextField(
-                    name: "profilePictureUrl",
+                    name: "imageUrl",
                     value: model.ProfilePicture.ImageUrl,
                     store: Field.Store.YES
                 ),

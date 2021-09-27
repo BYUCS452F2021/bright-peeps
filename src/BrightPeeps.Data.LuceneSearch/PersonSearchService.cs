@@ -14,7 +14,7 @@ using Lucene.Net.Util;
 
 namespace BrightPeeps.Data.LuceneSearch
 {
-    public sealed class PersonSearchService : ISearchService<Person>
+    public sealed class PersonSearchService : ISearchService<PersonProfile>
     {
         private const LuceneVersion MatchVersion = LuceneVersion.LUCENE_48;
 
@@ -43,12 +43,12 @@ namespace BrightPeeps.Data.LuceneSearch
             PersonWriter.Dispose();
         }
 
-        public async Task Initialize(IEnumerable<Person> persons)
+        public async Task Initialize(IEnumerable<PersonProfile> persons)
         {
             await AddManyAsync(persons);
         }
 
-        public void AddOne(Person person)
+        public void AddOne(PersonProfile person)
         {
             var document = person.ToDocument();
             PersonWriter.AddDocument(document);
@@ -59,14 +59,14 @@ namespace BrightPeeps.Data.LuceneSearch
             );
         }
 
-        public Task AddOneAsync(Person person)
+        public Task AddOneAsync(PersonProfile person)
         {
             AddOne(person);
 
             return Task.CompletedTask;
         }
 
-        public void AddMany(IEnumerable<Person> persons)
+        public void AddMany(IEnumerable<PersonProfile> persons)
         {
             var documents = persons.Select(Person => Person.ToDocument());
             PersonWriter.AddDocuments(documents);
@@ -77,14 +77,14 @@ namespace BrightPeeps.Data.LuceneSearch
             );
         }
 
-        public Task AddManyAsync(IEnumerable<Person> persons)
+        public Task AddManyAsync(IEnumerable<PersonProfile> persons)
         {
             AddMany(persons);
 
             return Task.CompletedTask;
         }
 
-        public void Update(Person person)
+        public void Update(PersonProfile person)
         {
             PersonWriter.UpdateDocument(new Term("id", person.Id), person.ToDocument());
 
@@ -94,7 +94,7 @@ namespace BrightPeeps.Data.LuceneSearch
             );
         }
 
-        public Task UpdateAsync(Person person)
+        public Task UpdateAsync(PersonProfile person)
         {
             Update(person);
 
