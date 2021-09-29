@@ -45,18 +45,9 @@ namespace BrightPeeps.Api
             });
 
             services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
-                (services) =>
-                {
-                    var dataAccess = new AzureSqlDataAccessService(
+                (services) => new AzureSqlDataAccessService(
                         connectionString: Configuration["AzureSqlDb:ConnectionString"]
-                    );
-
-                    dataAccess.TestConnection()
-                            .GetAwaiter().GetResult(); // Runs async method synchronously.
-
-                    return dataAccess;
-                }
-            );
+                ));
 
             services.AddSingleton<ISearchService<PersonProfile>, PersonSearchService>(
                 (services) => new PersonSearchService(
