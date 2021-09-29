@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging.AzureAppServices;
 using Microsoft.OpenApi.Models;
 
 namespace BrightPeeps.Api
@@ -25,6 +26,18 @@ namespace BrightPeeps.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AzureFileLoggerOptions>(options =>
+            {
+                options.FileName = "bright-peeps-diagnostics-";
+                options.FileSizeLimit = 50 * 1024;
+                options.RetainedFileCountLimit = 5;
+            });
+
+            services.Configure<AzureBlobLoggerOptions>(options =>
+            {
+                options.BlobName = "log.txt";
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
