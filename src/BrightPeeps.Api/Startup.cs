@@ -1,3 +1,4 @@
+using System;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 using BrightPeeps.Data.AzureSql;
@@ -38,7 +39,7 @@ namespace BrightPeeps.Api
                     );
 
                     dataAccess.TestConnection()
-                        .GetAwaiter().GetResult(); // Runs async method synchronously.
+                            .GetAwaiter().GetResult(); // Runs async method synchronously.
 
                     return dataAccess;
                 }
