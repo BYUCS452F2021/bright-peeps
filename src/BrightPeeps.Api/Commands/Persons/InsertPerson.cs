@@ -29,19 +29,31 @@ namespace BrightPeeps.Api.Commands.Persons
 
             public async Task<CommandResponse> Handle(Request request, CancellationToken cancellationToken)
             {
-                var response = await Data.ExecuteStoredProcedure<string, PersonProfile>(
-                    procedureId: "insertPerson",
-                    parameters: request.Model
-                );
-
-                request.Model.Id = response.ToList().FirstOrDefault() ?? "-1";
-
-                return new CommandResponse
+                try
                 {
-                    Successful = true,
-                    Message = "Command executed successfully.",
-                    Result = request.Model
-                };
+                    var result = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
+                        procedureId: "insertPerson",
+                        parameters: null
+                    );
+
+                    return new CommandResponse
+                    {
+                        Successful = true,
+                        Message = "Data inserted successfully.",
+                        Result = result
+                    };
+                }
+                catch (System.Exception e)
+                {
+                    Logger?.LogError($"Could not insert data into database. Error was {e}");
+
+                    return new CommandResponse
+                    {
+                        Successful = false,
+                        Message = "Could not insert data into database. Check logs for more details.",
+                        Result = default
+                    };
+                }
             }
         }
     }

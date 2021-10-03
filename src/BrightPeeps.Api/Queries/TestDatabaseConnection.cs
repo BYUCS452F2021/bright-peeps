@@ -43,8 +43,7 @@ namespace BrightPeeps.Api.Queries
                     return new QueryResponse
                     {
                         Successful = false,
-                        // Message = "Could not connect to database. Check logs for more details.",
-                        Message = e.ToString(),
+                        Message = "Could not connect to database. Check logs for more details.",
                         Result = default
                     };
                 }
