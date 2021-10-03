@@ -45,7 +45,7 @@ namespace BrightPeeps.Api.Queries.Persons
 
                     return new QueryResponse
                     {
-                        Successful = true,
+                        Successful = false,
                         Message = "Could not retrieve data from database. Check logs for more details.",
                         Result = default
                     };
