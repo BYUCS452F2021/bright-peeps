@@ -4,7 +4,7 @@
 
 This table represents a highlighted person.  There are general details for a person and a short and long bio for them as well. 
 
-- Users (<ins>id</ins>, peepId, username, password) 
+- Users (<ins>Id</ins>, peepId, username, password) 
     - Foreign key peepId references Peeps
 
 This table represents a registered user and stores credentials.
