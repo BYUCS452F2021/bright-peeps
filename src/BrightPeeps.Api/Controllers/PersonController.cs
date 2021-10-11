@@ -6,7 +6,7 @@ using BrightPeeps.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Vas.Api.Controllers
+namespace BrightPeeps.Api.Controllers
 {
     [Route("person")]
     public partial class PersonController : Controller
