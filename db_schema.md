@@ -14,7 +14,7 @@ This table represents a registered user and stores credentials.
 
 This table represents images attached to a Peep.  The columns involve metadata and a foreign key to relate an image to a Peep.
 
-- Works (<ins>Id</ins>, PeepId, Type, Description, URL, Title)
+- Works (<ins>Id</ins>, PeepId, WorkType, Description, URL, Title)
     - Foreign Key PeepId references Peep
 
 Works describe various fields below a Peep highlighting specific achievements, publications, or important events for the Peep.  These sub-categories are generalized as works, with the “Type” column representing an enum that will distinguish the type of work and what group it will be shown on screen under.  
