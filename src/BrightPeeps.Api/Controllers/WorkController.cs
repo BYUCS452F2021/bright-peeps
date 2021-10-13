@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
-using BrightPeeps.Api.Commands.Persons;
 using BrightPeeps.Api.Queries;
-using BrightPeeps.Api.Queries.Persons;
 using BrightPeeps.Api.Queries.Works;
 using BrightPeeps.Core.Models;
 using MediatR;

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -7,13 +6,13 @@ using BrightPeeps.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BrightPeeps.Api.Commands.Persons
+namespace BrightPeeps.Api.Commands.Images
 {
-    public static class InsertPerson
+    public static class DeleteImage
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public PersonProfile Model { get; init; }
+            public string Id { get; init; }
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>
@@ -31,26 +30,26 @@ namespace BrightPeeps.Api.Commands.Persons
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "insertPerson",
-                        parameters: null
+                    var result = await Data.ExecuteStoredProcedure<ImageData, dynamic>(
+                        procedureId: "deleteImage",
+                        parameters: new { Id = request.Id }
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
-                        Message = "Data inserted successfully.",
+                        Message = "Data deleted successfully.",
                         Result = result
                     };
                 }
                 catch (System.Exception e)
                 {
-                    Logger?.LogError($"Could not insert data into database. Error was {e}");
+                    Logger?.LogError($"Could not delete data from database. Error was {e}");
 
                     return new CommandResponse
                     {
                         Successful = false,
-                        Message = "Could not insert data into database. Check logs for more details.",
+                        Message = "Could not delete data from database. Check logs for more details.",
                         Result = default
                     };
                 }

@@ -6,9 +6,9 @@ using BrightPeeps.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BrightPeeps.Api.Queries.Persons
+namespace BrightPeeps.Api.Queries.Images
 {
-    public static class GetAllPersons
+    public static class GetAllImages
     {
         public sealed class Request : IRequest<QueryResponse> { }
 
@@ -27,8 +27,8 @@ namespace BrightPeeps.Api.Queries.Persons
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "getAllPersons",
+                    var results = await Data.ExecuteStoredProcedure<ImageData, dynamic>(
+                        procedureId: "getAllImages",
                         parameters: null
                     );
 
