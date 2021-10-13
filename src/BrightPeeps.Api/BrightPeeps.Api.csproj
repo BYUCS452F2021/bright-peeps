@@ -20,11 +20,4 @@
     <ProjectReference Include="..\BrightPeeps.Data.AzureSql\BrightPeeps.Data.AzureSql.csproj" />
     <ProjectReference Include="..\BrightPeeps.Data.LuceneSearch\BrightPeeps.Data.LuceneSearch.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Queries\Works\GetWorksByType" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Queries\Works\GetWorksByType" />
-  </ItemGroup>
 </Project>
