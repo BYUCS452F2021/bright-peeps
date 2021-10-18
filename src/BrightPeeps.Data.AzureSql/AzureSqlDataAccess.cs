@@ -69,9 +69,8 @@ namespace BrightPeeps.Data.AzureSql
 
         public async Task TestConnection()
         {
-            await ExecuteStoredProcedure<dynamic, dynamic>(
-                procedureId: "ConnectionTest",
-                parameters: null
+            await ExecuteStoredProcedure<dynamic>(
+                procedureId: "ConnectionTest"
             );
         }
     }
