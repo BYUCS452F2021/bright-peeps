@@ -27,9 +27,8 @@ namespace BrightPeeps.Api.Queries.Images
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<ImageData, dynamic>(
-                        procedureId: "getAllImages",
-                        parameters: null
+                    var results = await Data.ExecuteStoredProcedure<ImageData>(
+                        procedureId: "GetAllImages"
                     );
 
                     return new QueryResponse

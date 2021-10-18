@@ -6,6 +6,9 @@ using System;
 using BrightPeeps.Core.Services;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Reflection;
+using System.Text;
+using BrightPeeps.Core.Utils;
 
 namespace BrightPeeps.Data.AzureSql
 {
@@ -25,11 +28,36 @@ namespace BrightPeeps.Data.AzureSql
             await connection.ExecuteAsync(command, parameters);
         }
 
+        public async Task<IEnumerable<TResult>> ExecuteStoredProcedure<TResult>(string procedureId)
+        {
+            using var connection = new SqlConnection(ConnectionString);
+            await connection.OpenAsync();
+
+            return await connection.QueryAsync<TResult>($"[dbo].[{procedureId}]");
+        }
+
         public async Task<IEnumerable<TResult>> ExecuteStoredProcedure<TResult, TParam>(string procedureId, TParam parameters)
         {
             using var connection = new SqlConnection(ConnectionString);
             await connection.OpenAsync();
-            return (await connection.QueryAsync<TResult>($"EXECUTE [dbo].[{procedureId}]", parameters));
+
+            return await connection.QueryAsync<TResult>(
+                sql: $"[dbo].[{procedureId}] {GetParameterNames<TParam>(parameters)}",
+                param: parameters
+            );
+        }
+
+        public static string GetParameterNames<T>(T parameters)
+        {
+            var properties = new List<PropertyInfo>(typeof(T).GetProperties());
+
+            var buffer = new StringBuilder();
+
+            properties.ForEach(property => buffer.Append($"@{property.Name},"));
+
+            buffer.Remove(buffer.Length - 1, 1); // Removes trailing comma.
+
+            return buffer.ToString();
         }
 
         public async Task<IEnumerable<TResult>> ExecuteQuery<TResult, TParam>(string query, TParam parameters)
@@ -42,7 +70,7 @@ namespace BrightPeeps.Data.AzureSql
         public async Task TestConnection()
         {
             await ExecuteStoredProcedure<dynamic, dynamic>(
-                procedureId: "connectionTest",
+                procedureId: "ConnectionTest",
                 parameters: null
             );
         }

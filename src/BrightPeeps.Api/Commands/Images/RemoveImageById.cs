@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -9,25 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BrightPeeps.Api.Commands.Images
 {
-    public static class InsertImage
+    public static class RemoveImageById
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int PeepId { get; set; }
-            public string Title { get; set; }
-            public string ImageUrl { get; set; }
-            public string Caption { get; set; }
-            public bool IsProfile { get; set; }
-
-            public static Request FromImageData(ImageData model)
-                => new Request
-                {
-                    PeepId = model.PeepId,
-                    Title = model.Title,
-                    ImageUrl = model.ImageUrl,
-                    Caption = model.Caption,
-                    IsProfile = model.IsProfile
-                };
+            public int Id { get; init; }
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>
@@ -46,25 +31,25 @@ namespace BrightPeeps.Api.Commands.Images
                 try
                 {
                     var result = await Data.ExecuteStoredProcedure<ImageData, Request>(
-                        procedureId: "InsertImage",
+                        procedureId: "RemoveImageById",
                         parameters: request
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
-                        Message = "Data inserted successfully.",
+                        Message = "Data deleted successfully.",
                         Result = result
                     };
                 }
                 catch (System.Exception e)
                 {
-                    Logger?.LogError($"Could not insert data into database. Error was {e}");
+                    Logger?.LogError($"Could not delete data from database. Error was {e}");
 
                     return new CommandResponse
                     {
                         Successful = false,
-                        Message = "Could not insert data into database. Check logs for more details.",
+                        Message = "Could not delete data from database. Check logs for more details.",
                         Result = default
                     };
                 }

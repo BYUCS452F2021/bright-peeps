@@ -11,7 +11,7 @@ namespace BrightPeeps.Core.Models
         public IEnumerable<Work> Works { get; set; }
 
         public string FullName => Data?.FullName;
-        public string Id
+        public int Id
         {
             get => Data.Id;
             set => Data.Id = value;

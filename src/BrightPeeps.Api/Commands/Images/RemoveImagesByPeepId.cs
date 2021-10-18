@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BrightPeeps.Api.Commands.Images
 {
-    public static class DeleteImage
+    public static class RemoveImagesByPeepId
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public string Id { get; init; }
+            public string PeepId { get; init; }
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>
@@ -30,9 +30,9 @@ namespace BrightPeeps.Api.Commands.Images
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<ImageData, dynamic>(
-                        procedureId: "deleteImage",
-                        parameters: new { Id = request.Id }
+                    var result = await Data.ExecuteStoredProcedure<ImageData, Request>(
+                        procedureId: "RemoveImagesByPeepId",
+                        parameters: request
                     );
 
                     return new CommandResponse

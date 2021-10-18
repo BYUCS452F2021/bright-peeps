@@ -86,7 +86,7 @@ namespace BrightPeeps.Data.LuceneSearch
 
         public void Update(PersonProfile person)
         {
-            PersonWriter.UpdateDocument(new Term("id", person.Id), person.ToDocument());
+            PersonWriter.UpdateDocument(new Term("id", person.Id.ToString()), person.ToDocument());
 
             PersonWriter.Flush(
                 triggerMerge: false,

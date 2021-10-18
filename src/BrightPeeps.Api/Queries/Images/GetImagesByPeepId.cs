@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -9,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BrightPeeps.Api.Queries.Images
 {
-    public static class GetImageById
+    public static class GetImagesByPeepId
     {
         public sealed class Request : IRequest<QueryResponse>
         {
-            public string Id { get; set; }
+            public string PeepId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse>
@@ -32,7 +31,7 @@ namespace BrightPeeps.Api.Queries.Images
                 try
                 {
                     var results = await Data.ExecuteStoredProcedure<ImageData, Request>(
-                        procedureId: "GetImageById",
+                        procedureId: "GetImagesByPeepId",
                         parameters: request
                     );
 
@@ -40,7 +39,7 @@ namespace BrightPeeps.Api.Queries.Images
                     {
                         Successful = true,
                         Message = "Data retrieved successfully.",
-                        Result = results.FirstOrDefault() // There should be only one result 
+                        Result = results
                     };
                 }
                 catch (System.Exception e)

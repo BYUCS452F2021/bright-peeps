@@ -31,7 +31,7 @@ namespace BrightPeeps.Api.Commands.Images
                 try
                 {
                     var result = await Data.ExecuteStoredProcedure<ImageData, ImageData>(
-                        procedureId: "updateImage",
+                        procedureId: "UpdateImage",
                         parameters: request.Model
                     );
 

@@ -24,13 +24,6 @@ namespace Vas.Api.Controllers
             return Ok(await Mediator.Send(new GetAllImages.Request()));
         }
 
-        // TODO: Decide whether users can search through images
-        // [HttpGet("search")]
-        // public async Task<IActionResult> Search(string query)
-        // {
-        //     return Ok(await Mediator.Send(new SearchImages.Request { Query = query }));
-        // }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
@@ -40,7 +33,7 @@ namespace Vas.Api.Controllers
         [HttpGet("peep/{peepId}")]
         public async Task<IActionResult> GetByPeepId(string peepId)
         {
-            return Ok(await Mediator.Send(new GetImageByPeepId.Request { PeepId = peepId }));
+            return Ok(await Mediator.Send(new GetImagesByPeepId.Request { PeepId = peepId }));
         }
 
         [HttpPut]
@@ -52,13 +45,19 @@ namespace Vas.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] ImageData image)
         {
-            return Ok(await Mediator.Send(new InsertImage.Request { Model = image }));
+            return Ok(await Mediator.Send(InsertImage.Request.FromImageData(image)));
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] string id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await Mediator.Send(new DeleteImage.Request { Id = id }));
+            return Ok(await Mediator.Send(new RemoveImageById.Request { Id = int.Parse(id) }));
+        }
+
+        [HttpDelete("peep/{peepId}")]
+        public async Task<IActionResult> DeleteImagesByPeepId(string peepId)
+        {
+            return Ok(await Mediator.Send(new RemoveImagesByPeepId.Request { PeepId = peepId }));
         }
     }
 }

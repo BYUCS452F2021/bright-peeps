@@ -12,7 +12,7 @@ namespace BrightPeeps.Data.LuceneSearch.Extensions
             {
                 new TextField(
                     name: "id",
-                    value: model.Id,
+                    value: model.Id.ToString(),
                     store: Field.Store.YES
                 ),
                 new TextField(
