@@ -13,7 +13,7 @@ namespace BrightPeeps.Api.Commands.Peeps
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int Id { get; set; }
+            // public int Id { get; set; }
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
             public string LastName { get; set; }
@@ -50,25 +50,25 @@ namespace BrightPeeps.Api.Commands.Peeps
                 try
                 {
                     var result = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "AddPeep",
+                        procedureId: "UpdatePeep",
                         parameters: request
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
-                        Message = "Peep inserted successfully.",
+                        Message = "Peep updated successfully.",
                         Result = result
                     };
                 }
                 catch (System.Exception e)
                 {
-                    Logger?.LogError($"Could not insert data into database. Error was {e}");
+                    Logger?.LogError($"Could not update data in database. Error was {e}");
 
                     return new CommandResponse
                     {
                         Successful = false,
-                        Message = "Could not insert data into database. Check logs for more details.",
+                        Message = "Could not update data in database. Check logs for more details.",
                         Result = default
                     };
                 }

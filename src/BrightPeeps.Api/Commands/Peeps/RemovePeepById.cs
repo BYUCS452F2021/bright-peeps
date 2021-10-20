@@ -14,11 +14,6 @@ namespace BrightPeeps.Api.Commands.Peeps
         public sealed class Request : IRequest<CommandResponse>
         {
             public int Id { get; set; }
-            public string FirstName { get; set; }
-            public string MiddleName { get; set; }
-            public string LastName { get; set; }
-            public string ShortDescription { get; set; }
-            public string LongDescription { get; set; }
 
             /*
             TODO: Fix me
@@ -50,25 +45,25 @@ namespace BrightPeeps.Api.Commands.Peeps
                 try
                 {
                     var result = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "AddPeep",
+                        procedureId: "RemovePeepById",
                         parameters: request
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
-                        Message = "Peep inserted successfully.",
+                        Message = "Peep removed successfully.",
                         Result = result
                     };
                 }
                 catch (System.Exception e)
                 {
-                    Logger?.LogError($"Could not insert data into database. Error was {e}");
+                    Logger?.LogError($"Could not remove data from database. Error was {e}");
 
                     return new CommandResponse
                     {
                         Successful = false,
-                        Message = "Could not insert data into database. Check logs for more details.",
+                        Message = "Could not remove data from database. Check logs for more details.",
                         Result = default
                     };
                 }

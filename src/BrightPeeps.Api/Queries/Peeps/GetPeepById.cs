@@ -6,11 +6,14 @@ using BrightPeeps.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BrightPeeps.Api.Queries.Peeps
+namespace BrightPeeps.Api.Queries.Users
 {
-    public static class GetAllPeeps
+    public static class GetUserByPeepId
     {
-        public sealed class Request : IRequest<QueryResponse> { }
+        public sealed class Request : IRequest<QueryResponse>
+        {
+            public int Id { get; set; }
+        }
 
         public class Handler : IRequestHandler<Request, QueryResponse>
         {
@@ -27,9 +30,9 @@ namespace BrightPeeps.Api.Queries.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "getAllPeeps",
-                        parameters: null
+                    var results = await Data.ExecuteStoredProcedure<UserData, Request>(
+                        procedureId: "GetPeepById",
+                        parameters: request
                     );
 
                     return new QueryResponse
