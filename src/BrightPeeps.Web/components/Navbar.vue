@@ -17,6 +17,7 @@
       <a href="/">Bright Peeps</a>
     </span>
     <div class="flex-auto align-text-bottom text-2xl space-x-3 text-gray-300">
+      <a href="/authenticate" class="hover:text-white">authenticate</a>
       <a href="/explore" class="hover:text-white">explore</a>
       <a href="/about" class="hover:text-white">about</a>
     </div>
