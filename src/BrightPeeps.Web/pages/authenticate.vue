@@ -46,6 +46,10 @@ export default {
                     this.$router.push({
                         path: '/'
                     })
+                } else {
+                    alert('Bad username or password. Please reenter and try again.')
+                    this.signUpUsername = '';
+                    this.signUpPassword = '';
                 }
             }
         },
@@ -65,8 +69,12 @@ export default {
                         this.$router.push({
                             path: '/'
                         });
+                    } else {
+                        alert('Bad username or password. Please reenter and try again.')
+                        this.loginUsername = '';
+                        this.loginPassword = '';
                     }
-                }
+                } 
             }
         }
     }
