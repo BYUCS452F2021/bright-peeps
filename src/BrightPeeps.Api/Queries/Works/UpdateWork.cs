@@ -37,9 +37,9 @@ namespace BrightPeeps.Api.Queries.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
+                    var results = await Data.ExecuteStoredProcedure<PersonProfile, Request>(
                         procedureId: "UpdateWork",
-                        parameters: (request.Id, request.PeepId, request.WorkType, request.WorkDesc, request.WorkUrl, request.WorkTitle)
+                        parameters: request
                     );
 
                     return new QueryResponse {
