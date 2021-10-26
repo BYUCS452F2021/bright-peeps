@@ -27,9 +27,8 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "GetAllWorks",
-                        parameters: null
+                    var results = await Data.ExecuteStoredProcedure<PersonProfile>(
+                        procedureId: "GetAllWorks"
                     );
 
                     return new QueryResponse
