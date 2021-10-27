@@ -8,11 +8,10 @@ using Microsoft.Extensions.Logging;
 
 namespace BrightPeeps.Api.Queries.Peeps
 {
-    public static class GetPeepById
+    public static class GetAllPeeps
     {
         public sealed class Request : IRequest<QueryResponse>
         {
-            public int Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse>
@@ -31,7 +30,7 @@ namespace BrightPeeps.Api.Queries.Peeps
                 try
                 {
                     var results = await Data.ExecuteStoredProcedure<UserData, Request>(
-                        procedureId: "GetPeepById",
+                        procedureId: "GetAllPeeps",
                         parameters: request
                     );
 

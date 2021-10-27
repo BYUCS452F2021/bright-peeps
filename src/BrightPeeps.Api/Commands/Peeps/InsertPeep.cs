@@ -13,25 +13,23 @@ namespace BrightPeeps.Api.Commands.Peeps
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int Id { get; set; }
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
             public string LastName { get; set; }
             public string ShortDescription { get; set; }
             public string LongDescription { get; set; }
 
-            /*
-            TODO: Fix me
-            */
-            public static Request FromUserData(CreateUserRequest model)
-                => new Request
+            public static Request FromPersonProfile(PersonProfile model)
+            {
+                return new Request
                 {
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName = model.LastName,
+                    FirstName = model.Data.FirstName,
+                    MiddleName = model.Data.MiddleName,
+                    LastName = model.Data.LastName,
                     ShortDescription = model.ShortDescription,
-                    LongDescription = model.LongDescription
+                    LongDescription = model.LongDescription,
                 };
+            }
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>

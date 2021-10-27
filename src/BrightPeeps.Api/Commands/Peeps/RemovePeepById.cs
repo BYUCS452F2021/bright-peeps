@@ -9,24 +9,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BrightPeeps.Api.Commands.Peeps
 {
-    public static class InsertPeep
+    public static class RemovePeepById
     {
         public sealed class Request : IRequest<CommandResponse>
         {
             public int Id { get; set; }
-
-            /*
-            TODO: Fix me
-            */
-            public static Request FromUserData(CreateUserRequest model)
-                => new Request
-                {
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName = model.LastName,
-                    ShortDescription = model.ShortDescription,
-                    LongDescription = model.LongDescription
-                };
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>
