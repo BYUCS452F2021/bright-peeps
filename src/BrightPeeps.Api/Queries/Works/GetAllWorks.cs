@@ -27,7 +27,7 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile>(
+                    var results = await Data.ExecuteStoredProcedure<WorkData>(
                         procedureId: "GetAllWorks"
                     );
 

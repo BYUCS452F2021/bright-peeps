@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace BrightPeeps.Api.Queries.Works {
     public static class GetWorkById {
         public sealed class Request : IRequest<QueryResponse> {
-            public int Id;
+            public int Id { get; set; }
 
             public Request(int id) {
                 this.Id = id;
@@ -27,7 +27,7 @@ namespace BrightPeeps.Api.Queries.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, Request>(
+                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
                         procedureId: "GetWorkById",
                         parameters: request
                     );

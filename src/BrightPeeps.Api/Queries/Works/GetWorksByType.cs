@@ -11,7 +11,7 @@ namespace BrightPeeps.Api.Queries.Works
     public static class GetWorksByType
     {
         public sealed class Request : IRequest<QueryResponse> {
-            public string Type;
+            public string Type {get; set;}
 
             public Request(string type) {
                 this.Type = type;
@@ -33,7 +33,7 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, Request>(
+                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
                         procedureId: "GetWorksByType",
                         parameters: request
                     );

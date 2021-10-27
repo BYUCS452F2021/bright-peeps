@@ -6,13 +6,23 @@ using BrightPeeps.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BrightPeeps.Api.Queries.Works {
-    public static class RemoveWorksByType {
+namespace BrightPeeps.Api.Commands.Works {
+    public static class UpdateWork {
         public sealed class Request : IRequest<QueryResponse> {
-            public string Type;
+            public int Id { get; set; }
+            public int PeepId { get; set; }
+            public string WorkType { get; set; }
+            public string WorkDesc { get; set; }
+            public string WorkUrl { get; set; }
+            public string WorkTitle { get; set; }
 
-            public Request(string type) {
-                Type = type;
+            public Request(int id, int peepId, string type, string desc, string url, string title) {
+                Id = id;
+                PeepId = peepId;
+                WorkType = type;
+                WorkDesc = desc;
+                WorkUrl = url;
+                WorkTitle = title;
             }
         }
 
@@ -27,8 +37,8 @@ namespace BrightPeeps.Api.Queries.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, Request>(
-                        procedureId: "RemoveWorksByType",
+                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
+                        procedureId: "UpdateWork",
                         parameters: request
                     );
 
@@ -50,3 +60,4 @@ namespace BrightPeeps.Api.Queries.Works {
         }
     }
 }
+
