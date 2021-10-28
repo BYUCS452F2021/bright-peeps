@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-[300px] rounded-md overflow-hidden shadow-md">
-    <a href="#">
+    <a href="/profile">
       <img
         class="w-full max-h-[250px]"
         src="https://bhcoe.org/wp-content/uploads/2019/08/Profile-placeholder-300x300.png"
