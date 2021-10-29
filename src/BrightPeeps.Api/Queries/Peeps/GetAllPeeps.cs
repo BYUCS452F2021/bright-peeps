@@ -29,9 +29,8 @@ namespace BrightPeeps.Api.Queries.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<UserData, Request>(
-                        procedureId: "GetAllPeeps",
-                        parameters: request
+                    var results = await Data.ExecuteStoredProcedure<PersonData>(
+                        procedureId: "GetAllPeeps"
                     );
 
                     return new QueryResponse

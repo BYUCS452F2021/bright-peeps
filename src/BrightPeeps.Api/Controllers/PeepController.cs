@@ -61,15 +61,15 @@ namespace Vas.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] PersonProfile person)
+        public async Task<IActionResult> Update([FromBody] PersonData person)
         {
-            return Ok(await Mediator.Send(UpdatePeep.Request.FromPersonProfile(person)));
+            return Ok(await Mediator.Send(UpdatePeep.Request.FromPersonData(person)));
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertNewPeep([FromBody] PersonProfile person)
+        public async Task<IActionResult> InsertNewPeep([FromBody] PersonData person)
         {
-            return Ok(await Mediator.Send(InsertPeep.Request.FromPersonProfile(person)));
+            return Ok(await Mediator.Send(InsertPeep.Request.FromPersonData(person)));
         }
 
         [HttpDelete("{personId}")]

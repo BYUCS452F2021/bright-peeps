@@ -27,9 +27,8 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
-                        procedureId: "RemoveAllPeeps",
-                        parameters: null
+                    var results = await Data.ExecuteStoredProcedure<dynamic>(
+                        procedureId: "RemoveAllPeeps"
                     );
 
                     return new QueryResponse

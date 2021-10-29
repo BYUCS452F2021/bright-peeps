@@ -23,7 +23,7 @@ namespace BrightPeeps.Core.Models
 
         public string LongDescription
         {
-            get => Data.FullDescription;
+            get => Data.LongDescription;
         }
 
     }

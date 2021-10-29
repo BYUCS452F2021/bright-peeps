@@ -20,14 +20,14 @@ namespace BrightPeeps.Api.Commands.Peeps
             public string ShortDescription { get; set; }
             public string LongDescription { get; set; }
 
-            public static Request FromPersonProfile(PersonProfile model)
+            public static Request FromPersonData(PersonData model)
             {
                 return new Request
                 {
                     Id = model.Id,
-                    FirstName = model.Data.FirstName,
-                    MiddleName = model.Data.MiddleName,
-                    LastName = model.Data.LastName,
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName,
                     ShortDescription = model.ShortDescription,
                     LongDescription = model.LongDescription,
                 };
@@ -49,7 +49,7 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<PersonProfile, dynamic>(
+                    var result = await Data.ExecuteStoredProcedure<PersonData, Request>(
                         procedureId: "UpdatePeep",
                         parameters: request
                     );

@@ -10,7 +10,7 @@ namespace BrightPeeps.Core.Models
         public string LastName { get; set; }
 
         public string ShortDescription { get; set; }
-        public string FullDescription { get; set; }
+        public string LongDescription { get; set; }
 
         public string FullName
             => string.IsNullOrEmpty(MiddleName)

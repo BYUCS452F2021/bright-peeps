@@ -30,7 +30,7 @@ namespace BrightPeeps.Api.Queries.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<UserData, Request>(
+                    var results = await Data.ExecuteStoredProcedure<PersonData, Request>(
                         procedureId: "GetPeepById",
                         parameters: request
                     );
