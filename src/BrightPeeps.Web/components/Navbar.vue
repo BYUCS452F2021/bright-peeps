@@ -14,12 +14,14 @@
     "
   >
     <span class="px-2 flex-none text-3xl hover:text-green-400">
-      <a href="/">Bright Peeps</a>
+      <NuxtLink to="/">Bright Peeps</NuxtLink>
     </span>
     <div class="flex-auto align-text-bottom text-2xl space-x-3 text-gray-300">
-      <a href="/authenticate" class="hover:text-white">authenticate</a>
-      <a href="/explore" class="hover:text-white">explore</a>
-      <a href="/about" class="hover:text-white">about</a>
+      <NuxtLink to="/authenticate" class="hover:text-white"
+        >authenticate</NuxtLink
+      >
+      <NuxtLink to="/explore" class="hover:text-white">explore</NuxtLink>
+      <NuxtLink to="/about" class="hover:text-white">about</NuxtLink>
     </div>
     <span class="px-2 flex-none flex space-x-2">
       <input
