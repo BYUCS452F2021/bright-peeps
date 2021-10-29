@@ -53,63 +53,59 @@
           v-model="title"
           class="
             flex-auto
-            appearance-none
             border
             rounded
             py-2
             px-3
-            italic
-            focus:bg-white focus:text-black
             leading-tight
-            focus:outline-none
+            placeholder-gray-500
+            text-black
+            focus:bg-white focus:text-black
           "
           placeholder="Title"
-        />
-        <input
-          v-model="desc"
-          class="
-            flex-auto
-            appearance-none
-            border
-            rounded
-            py-2
-            px-3
-            italic
-            focus:bg-white focus:text-black
-            leading-tight
-            focus:outline-none
-          "
-          placeholder="Description"
         />
         <input
           v-model="type"
           class="
             flex-auto
-            appearance-none
             border
             rounded
             py-2
             px-3
-            italic
-            focus:bg-white focus:text-black
             leading-tight
-            focus:outline-none
+            placeholder-gray-500
+            text-black
+            focus:bg-white focus:text-black
           "
           placeholder="Type"
+        />
+        <input
+          v-model="desc"
+          class="
+            flex-auto
+            border
+            rounded
+            py-2
+            px-3
+            leading-tight
+            placeholder-gray-500
+            text-black
+            focus:bg-white focus:text-black
+          "
+          placeholder="Description"
         />
         <input
           v-model="url"
           class="
             flex-auto
-            appearance-none
             border
             rounded
             py-2
             px-3
-            italic
-            focus:bg-white focus:text-black
             leading-tight
-            focus:outline-none
+            placeholder-gray-500
+            text-black
+            focus:bg-white focus:text-black
           "
           placeholder="URL"
         />
