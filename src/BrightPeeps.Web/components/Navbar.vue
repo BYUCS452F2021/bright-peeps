@@ -52,6 +52,7 @@
           rounded
           text-gray-800
         "
+        @click="alertGotcha"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -69,5 +70,56 @@
         </svg>
       </button>
     </span>
+    <span class="px-2 flex-none flex space-x-2">
+      <button
+        class="
+          flex
+          space-x-2
+          p-2
+          bg-gray-200
+          hover:bg-gray-100
+          active:bg-gray-300
+          rounded
+          text-gray-800
+        "
+        @click="alertUser"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          />
+        </svg>
+        <p v-if="username">{{ username }}</p>
+      </button>
+    </span>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    username() {
+      return this.$store.state.username
+    },
+  },
+  methods: {
+    alertUser() {
+      alert(`Welcome, ${this.username ? this.username : 'guest'}!`)
+    },
+    alertGotcha() {
+      alert(
+        `Gotcha! The search functionality isn't implemented in the front-end yet!`
+      )
+    },
+  },
+}
+</script>

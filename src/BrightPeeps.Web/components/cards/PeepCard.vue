@@ -66,7 +66,6 @@ export default {
   methods: {
     setActiveId() {
       this.$store.state.id = this.id
-      console.log(`active id set to ${this.id}`)
     },
   },
 }

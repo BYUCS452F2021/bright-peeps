@@ -52,7 +52,7 @@ export default {
     const url = 'https://bright-peeps-api.azurewebsites.net/peep/' + this.id
     const response = await axios.get(url)
     if (response.status === 200) {
-      console.log(response.data.result[0])
+      // console.log(response.data.result[0])
       this.peep = response.data.result[0]
     } else {
       alert(`Failed to retrieve data of peep ${this.id}.`)

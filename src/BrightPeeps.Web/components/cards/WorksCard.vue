@@ -10,7 +10,11 @@
         text-center
       "
     >
-      <div v-for="w in works" :key="w.id" class="flex space-x-4">
+      <div
+        v-for="w in works"
+        :key="w.id"
+        class="flex space-x-4 justify-center items-center"
+      >
         <p>
           <strong>{{ w.workTitle }}:</strong>
         </p>
@@ -19,14 +23,14 @@
         </p>
         <p>{{ w.workDescription }}</p>
         <p>
-          <a :href="w.workUrl"> {{ w.workUrl }} </a>
+          <a target="_blank" :href="w.workUrl"> {{ w.workUrl }} </a>
         </p>
         <div class="flex-none m-w-[50px]">
           <button
-            class="px-2 py-2 bg-gray-500 rounded-md"
+            class="px-2 py-2 border-gray-700 border-2 rounded-md"
             @click="deleteWork(w.id)"
           >
-            Delete
+            ❌
           </button>
         </div>
       </div>
@@ -34,12 +38,81 @@
 
     <div class="py-5 flex-row">
       <div
-        class="py-3 flex-row rounded-md overflow-hidden shadow-md bg-gray-300"
+        class="
+          px-5
+          py-3
+          rounded-md
+          overflow-hidden
+          shadow-md
+          border-gray-500 border-2
+          flex
+          space-x-2
+        "
       >
-        <input v-model="title" class="px-2" placeholder="Title" />
-        <input v-model="desc" class="px-2" placeholder="Description" />
-        <input v-model="type" class="px-2" placeholder="Type" />
-        <input v-model="url" class="px-2" placeholder="URL" />
+        <input
+          v-model="title"
+          class="
+            flex-auto
+            appearance-none
+            border
+            rounded
+            py-2
+            px-3
+            italic
+            focus:bg-white focus:text-black
+            leading-tight
+            focus:outline-none
+          "
+          placeholder="Title"
+        />
+        <input
+          v-model="desc"
+          class="
+            flex-auto
+            appearance-none
+            border
+            rounded
+            py-2
+            px-3
+            italic
+            focus:bg-white focus:text-black
+            leading-tight
+            focus:outline-none
+          "
+          placeholder="Description"
+        />
+        <input
+          v-model="type"
+          class="
+            flex-auto
+            appearance-none
+            border
+            rounded
+            py-2
+            px-3
+            italic
+            focus:bg-white focus:text-black
+            leading-tight
+            focus:outline-none
+          "
+          placeholder="Type"
+        />
+        <input
+          v-model="url"
+          class="
+            flex-auto
+            appearance-none
+            border
+            rounded
+            py-2
+            px-3
+            italic
+            focus:bg-white focus:text-black
+            leading-tight
+            focus:outline-none
+          "
+          placeholder="URL"
+        />
         <button class="px-2 py-2 bg-gray-500 rounded-md" @click="addWork()">
           Add Work
         </button>
@@ -113,10 +186,10 @@ export default {
           }
         )
         if (response.status === 200) {
-          console.log(response)
+          // console.log(response)
           this.getWorks()
         } else {
-          console.log(response)
+          // console.log(response)
         }
       }
     },
