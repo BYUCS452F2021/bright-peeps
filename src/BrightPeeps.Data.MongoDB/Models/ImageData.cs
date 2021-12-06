@@ -1,8 +1,7 @@
-namespace BrightPeeps.Core.Models
+namespace BrightPeeps.Data.MongoDB.Models
 {
-    public partial class ImageData
+    public partial class ImageData : Entry
     {
-        public string Id { get; set; }
         public string PeepId { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }

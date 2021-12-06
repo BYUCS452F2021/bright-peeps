@@ -1,14 +1,11 @@
-namespace BrightPeeps.Core.Models
+namespace BrightPeeps.Data.MongoDB.Models
 {
-    public sealed class WorkData
+    public sealed class WorkData : Entry
     {
-        public string Id { get; init; }
         public string PeepID { get; init; }
         public string WorkType { get; init; }
         public string WorkDescription { get; init; }
-
         public string WorkUrl { get; init; }
-
         public string WorkTitle { get; init; }
     }
 }

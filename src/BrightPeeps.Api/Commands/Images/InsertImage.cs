@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +14,7 @@ namespace BrightPeeps.Api.Commands.Images
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int PeepId { get; set; }
+            public string PeepId { get; set; }
             public string Title { get; set; }
             public string ImageUrl { get; set; }
             public string Caption { get; set; }
@@ -32,10 +33,12 @@ namespace BrightPeeps.Api.Commands.Images
 
         public class Handler : IRequestHandler<Request, CommandResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            // Change the property to use MongoDBDataAccessService
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            // Change the Dependency Injection Service you subscribe to
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -45,16 +48,23 @@ namespace BrightPeeps.Api.Commands.Images
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<ImageData, Request>(
-                        procedureId: "InsertImage",
-                        parameters: request
+                    // Unfortunately, you will need to initialize the MongoDB version of the data
+                    // you are trying to pass in like this. Tedious, but what can you do. 
+                    await Data.Images.InsertAsync(
+                        new Data.MongoDB.Models.ImageData
+                        {
+                            PeepId = request.PeepId.ToString(),
+                            Title = request.Title,
+                            ImageUrl = request.ImageUrl,
+                            Caption = request.Caption,
+                            IsProfile = request.IsProfile
+                        }
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
                         Message = "Data inserted successfully.",
-                        Result = result
                     };
                 }
                 catch (System.Exception e)

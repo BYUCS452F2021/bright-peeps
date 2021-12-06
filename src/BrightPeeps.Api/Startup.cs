@@ -3,6 +3,7 @@ using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 using BrightPeeps.Data.AzureSql;
 using BrightPeeps.Data.LuceneSearch;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,10 +45,15 @@ namespace BrightPeeps.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BrightPeeps.Api", Version = "v1" });
             });
 
-            services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
-                (services) => new AzureSqlDataAccessService(
-                        connectionString: Configuration["AzureSqlDb:ConnectionString"]
-                ));
+            // services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
+            //     (services) => new AzureSqlDataAccessService(
+            //             connectionString: Configuration["AzureSqlDb:ConnectionString"]
+            //     ));
+
+            services.AddSingleton<MongoDBDataAccessService>(
+                (services) => new MongoDBDataAccessService(
+                    connectionString: Configuration["AtlasMongoDB:ConnectionString"]
+            ));
 
             services.AddSingleton<ISearchService<PersonProfile>, PersonSearchService>(
                 (services) => new PersonSearchService(

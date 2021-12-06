@@ -13,11 +13,13 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="5.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BrightPeeps.Core\BrightPeeps.Core.csproj" />
     <ProjectReference Include="..\BrightPeeps.Data.AzureSql\BrightPeeps.Data.AzureSql.csproj" />
     <ProjectReference Include="..\BrightPeeps.Data.LuceneSearch\BrightPeeps.Data.LuceneSearch.csproj" />
+    <ProjectReference Include="..\BrightPeeps.Data.MongoDB\BrightPeeps.Data.MongoDB.csproj" />
   </ItemGroup>
 </Project>
