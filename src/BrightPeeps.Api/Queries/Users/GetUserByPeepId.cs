@@ -33,15 +33,25 @@ namespace BrightPeeps.Api.Queries.Users
             {
                 try
                 {
-                    var result = await Data.Users.GetAsync(
-                        request.PeepID
-                    );
+                    var results = await Data.Users.GetAllAsync();
+
+                    foreach(var result in results)
+                    {
+                        if (result.PeepID == request.PeepID)
+                        {
+                            return new QueryResponse
+                            {
+                                Successful = true,
+                                Message = "Data retrieved successfully.",
+                                Result = result
+                            };
+                        }
+                    }
 
                     return new QueryResponse
                     {
-                        Successful = true,
-                        Message = "Data retrieved successfully.",
-                        Result = result
+                        Successful = false,
+                        Message = "Data not retrieved successfully.",
                     };
                 }
                 catch (System.Exception e)
