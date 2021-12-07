@@ -34,7 +34,7 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.Works.GetAsync(workType: request.Type);
+                    var results = await Data.Works.GetAsync(id: request.Type);
 
                     return new QueryResponse
                     {

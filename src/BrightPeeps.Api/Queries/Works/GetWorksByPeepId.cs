@@ -28,7 +28,7 @@ namespace BrightPeeps.Api.Queries.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.Images.GetAsync(peepId: request.PeepId.ToString());
+                    var results = await Data.Images.GetAsync(id: request.PeepId.ToString());
 
                     return new QueryResponse {
                         Successful = true,
