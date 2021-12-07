@@ -37,15 +37,21 @@ namespace BrightPeeps.Api.Commands.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
-                        procedureId: "UpdateWork",
-                        parameters: request
+                    await Data.Works.UpdateAsync(
+                        new BrightPeeps.Data.MongoDB.Models.WorkData
+                        {
+                            Id = request.Id.ToString(),
+                            PeepId = request.PeepId.ToString(),
+                            WorkType = request.WorkType,
+                            WorkDesc = request.WorkDesc,
+                            WorkUrl = request.WorkUrl,
+                            WorkTitle = request.WorkTitle
+                        }
                     );
 
-                    return new QueryResponse {
+                    return new CommandResponse {
                         Successful = true,
-                        Message = "Data retrieved successfully.",
-                        Result = results
+                        Message = "Data retrieved successfully."
                     };
                 } catch (System.Exception e) {
                     Logger?.LogError($"Could not retrieve data from database. Error was {e}");

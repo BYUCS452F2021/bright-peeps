@@ -33,10 +33,7 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
-                        procedureId: "GetWorksByType",
-                        parameters: request
-                    );
+                    var results = await Data.Works.GetAsync(workType: request.Type);
 
                     return new QueryResponse
                     {

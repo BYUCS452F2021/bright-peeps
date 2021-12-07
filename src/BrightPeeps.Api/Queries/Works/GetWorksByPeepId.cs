@@ -27,10 +27,7 @@ namespace BrightPeeps.Api.Queries.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
-                        procedureId: "GetWorksByPeepId",
-                        parameters: request
-                    );
+                    var results = await Data.Images.GetAsync(peepId: request.PeepId.ToString());
 
                     return new QueryResponse {
                         Successful = true,

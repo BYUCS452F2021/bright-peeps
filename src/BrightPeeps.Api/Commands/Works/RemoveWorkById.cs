@@ -27,15 +27,11 @@ namespace BrightPeeps.Api.Commands.Works {
 
             public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
                 try {
-                    var results = await Data.ExecuteStoredProcedure<WorkData, Request>(
-                        procedureId: "RemoveWorkById",
-                        parameters: request
-                    );
+                    await Data.Works.DeleteAsync(id: request.Id.ToString());
 
-                    return new QueryResponse {
+                    return new CommandResponse {
                         Successful = true,
-                        Message = "Data retrieved successfully.",
-                        Result = results
+                        Message = "Data retrieved successfully."
                     };
                 } catch (System.Exception e) {
                     Logger?.LogError($"Could not retrieve data from database. Error was {e}");
