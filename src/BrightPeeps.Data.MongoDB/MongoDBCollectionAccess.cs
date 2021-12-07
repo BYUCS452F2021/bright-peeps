@@ -10,7 +10,7 @@ namespace BrightPeeps.Data.MongoDB
     {
         public readonly IMongoCollection<T> Collection;
 
-        private MongoDBCollectionAccess(IMongoCollection<T> collection)
+        public MongoDBCollectionAccess(IMongoCollection<T> collection)
         {
             Collection = collection;
         }

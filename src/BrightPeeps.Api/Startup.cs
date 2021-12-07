@@ -45,10 +45,10 @@ namespace BrightPeeps.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BrightPeeps.Api", Version = "v1" });
             });
 
-            // services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
-            //     (services) => new AzureSqlDataAccessService(
-            //             connectionString: Configuration["AzureSqlDb:ConnectionString"]
-            //     ));
+            services.AddSingleton<ISqlDataAccessService, AzureSqlDataAccessService>(
+                (services) => new AzureSqlDataAccessService(
+                        connectionString: Configuration["AzureSqlDb:ConnectionString"]
+                ));
 
             services.AddSingleton<MongoDBDataAccessService>(
                 (services) => new MongoDBDataAccessService(

@@ -15,6 +15,22 @@ namespace BrightPeeps.Data.MongoDB
         {
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase("bright-peeps");
+
+            Users = new MongoDBCollectionAccess<UserData>(
+                collection: database.GetCollection<UserData>("users")
+            );
+
+            Peeps = new MongoDBCollectionAccess<PeepData>(
+                collection: database.GetCollection<PeepData>("peeps")
+            );
+
+            Images = new MongoDBCollectionAccess<ImageData>(
+                collection: database.GetCollection<ImageData>("images")
+            );
+
+            Works = new MongoDBCollectionAccess<WorkData>(
+                collection: database.GetCollection<WorkData>("works")
+            );
         }
     }
 }
