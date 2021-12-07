@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +18,12 @@ namespace BrightPeeps.Api.Queries.Users
 
         public class Handler : IRequestHandler<Request, QueryResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            // Change the property to use MongoDBDataAccessService
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            // Change the Dependency Injection Service you subscribe to
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -30,16 +33,15 @@ namespace BrightPeeps.Api.Queries.Users
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<UserData, Request>(
-                        procedureId: "GetUserByUsername",
-                        parameters: request
+                     var result = await Data.Users.GetAsync(
+                        request.Username
                     );
 
                     return new QueryResponse
                     {
                         Successful = true,
                         Message = "Data retrieved successfully.",
-                        Result = results
+                        Result = result
                     };
                 }
                 catch (System.Exception e)

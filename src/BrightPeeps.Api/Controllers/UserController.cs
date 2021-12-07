@@ -18,7 +18,7 @@ namespace BrightPeeps.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] CreateUserRequest request) {
-            if (request.PeepID <= 0) {
+            if (request.PeepID == null || request.PeepID == "") {
                 return Ok(await Mediator.Send(InsertUserWithoutPeepID.Request.FromUserData(request)));
             } else {
                 return Ok(await Mediator.Send(InsertUserWithPeepID.Request.FromUserData(request)));
@@ -26,7 +26,7 @@ namespace BrightPeeps.Api.Controllers
         }
 
         [HttpGet("peepId/{peepId}")]
-        public async Task<IActionResult> GetUserByPeepId(int peepId) {
+        public async Task<IActionResult> GetUserByPeepId(string peepId) {
             return Ok(await Mediator.Send(new GetUserByPeepId.Request {PeepID = peepId}));
         }
 

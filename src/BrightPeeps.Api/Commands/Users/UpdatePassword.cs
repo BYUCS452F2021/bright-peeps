@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +18,12 @@ namespace BrightPeeps.Api.Commands.Users
 
         public class Handler : IRequestHandler<Request, CommandResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            // Change the property to use MongoDBDataAccessService
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            // Change the Dependency Injection Service you subscribe to
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -30,16 +33,18 @@ namespace BrightPeeps.Api.Commands.Users
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<UserData, UpdatePasswordData>(
-                        procedureId: "UpdateUserPassword",
-                        parameters: request.Model
+                    await Data.Users.UpdateAsync(
+                        new Data.MongoDB.Models.UserData
+                        {
+                            Username = request.Model.Username,
+                            Password = request.Model.Password,
+                        }
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
                         Message = "Data updated successfully.",
-                        Result = result
                     };
                 }
                 catch (System.Exception e)
