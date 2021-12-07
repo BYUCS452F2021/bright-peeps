@@ -27,10 +27,10 @@ namespace BrightPeeps.Api.Commands.Works {
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse> {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger) {
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger) {
                 Data = dataAccess;
                 Logger = logger;
             }
@@ -41,15 +41,15 @@ namespace BrightPeeps.Api.Commands.Works {
                         new BrightPeeps.Data.MongoDB.Models.WorkData
                         {
                             Id = request.Id.ToString(),
-                            PeepId = request.PeepId.ToString(),
+                            PeepID = request.PeepId.ToString(),
                             WorkType = request.WorkType,
-                            WorkDesc = request.WorkDesc,
+                            WorkDescription = request.WorkDesc,
                             WorkUrl = request.WorkUrl,
                             WorkTitle = request.WorkTitle
                         }
                     );
 
-                    return new CommandResponse {
+                    return new QueryResponse {
                         Successful = true,
                         Message = "Data retrieved successfully."
                     };

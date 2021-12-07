@@ -17,10 +17,10 @@ namespace BrightPeeps.Api.Commands.Works {
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse> {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger) {
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger) {
                 Data = dataAccess;
                 Logger = logger;
             }
@@ -29,7 +29,7 @@ namespace BrightPeeps.Api.Commands.Works {
                 try {
                     await Data.Works.DeleteAsync(id: request.Id.ToString());
 
-                    return new CommandResponse {
+                    return new QueryResponse {
                         Successful = true,
                         Message = "Data retrieved successfully."
                     };

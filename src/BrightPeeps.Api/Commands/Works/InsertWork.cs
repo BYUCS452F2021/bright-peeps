@@ -25,10 +25,10 @@ namespace BrightPeeps.Api.Commands.Works {
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse> {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger) {
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger) {
                 Data = dataAccess;
                 Logger = logger;
             }
@@ -38,7 +38,7 @@ namespace BrightPeeps.Api.Commands.Works {
                     await Data.Works.InsertAsync(
                         new Data.MongoDB.Models.WorkData
                         {
-                            PeepId = request.PeepId.ToString(),
+                            PeepID = request.PeepId.ToString(),
                             WorkType = request.WorkType,
                             WorkDescription = request.WorkDesc,
                             WorkUrl = request.WorkUrl,
@@ -46,7 +46,7 @@ namespace BrightPeeps.Api.Commands.Works {
                         }
                     );
 
-                    return new CommandResponse {
+                    return new QueryResponse {
                         Successful = true,
                         Message = "Data retrieved successfully."
                     };
