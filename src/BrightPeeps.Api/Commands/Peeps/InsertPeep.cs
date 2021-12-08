@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -34,10 +35,10 @@ namespace BrightPeeps.Api.Commands.Peeps
 
         public class Handler : IRequestHandler<Request, CommandResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -47,16 +48,23 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<PersonProfile, Request>(
-                        procedureId: "AddPeep",
-                        parameters: request
+                    // Unfortunately, you will need to initialize the MongoDB version of the data
+                    // you are trying to pass in like this. Tedious, but what can you do. 
+                    await Data.Peeps.InsertAsync(
+                        new Data.MongoDB.Models.PeepData
+                        {
+                            FirstName = request.FirstName,
+                            MiddleName = request.MiddleName,
+                            LastName = request.LastName,
+                            ShortDescription = request.ShortDescription,
+                            LongDescription = request.LongDescription
+                        }
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
                         Message = "Peep inserted successfully.",
-                        Result = result
                     };
                 }
                 catch (System.Exception e)

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -14,10 +15,10 @@ namespace BrightPeeps.Api.Commands.Peeps
 
         public class Handler : IRequestHandler<Request, QueryResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -27,15 +28,12 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<dynamic>(
-                        procedureId: "RemoveAllPeeps"
-                    );
+                    await Data.Peeps.Collection.DeleteMany();
 
                     return new QueryResponse
                     {
                         Successful = true,
                         Message = "Data removed successfully.",
-                        Result = results
                     };
                 }
                 catch (System.Exception e)

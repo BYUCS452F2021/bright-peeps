@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -36,10 +37,10 @@ namespace BrightPeeps.Api.Commands.Peeps
 
         public class Handler : IRequestHandler<Request, CommandResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -49,16 +50,21 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    var result = await Data.ExecuteStoredProcedure<PersonData, Request>(
-                        procedureId: "UpdatePeep",
-                        parameters: request
+                    await Data.Peeps.UpdateAsync(
+                        new BrightPeeps.Data.MongoDB.Models.PeepData
+                        {
+                            FirstName = request.FirstName,
+                            MiddleName = request.MiddleName,
+                            LastName = request.LastName,
+                            ShortDescription = request.ShortDescription,
+                            LongDescription = request.LongDescription
+                        }
                     );
 
                     return new CommandResponse
                     {
                         Successful = true,
                         Message = "Peep updated successfully.",
-                        Result = result
                     };
                 }
                 catch (System.Exception e)

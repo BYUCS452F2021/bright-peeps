@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
 using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
+using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -12,15 +13,15 @@ namespace BrightPeeps.Api.Queries.Peeps
     {
         public sealed class Request : IRequest<QueryResponse>
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, QueryResponse>
         {
-            private readonly ISqlDataAccessService Data;
+            private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(ISqlDataAccessService dataAccess, ILogger<Handler> logger)
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
             {
                 Data = dataAccess;
                 Logger = logger;
@@ -30,16 +31,13 @@ namespace BrightPeeps.Api.Queries.Peeps
             {
                 try
                 {
-                    var results = await Data.ExecuteStoredProcedure<PersonData, Request>(
-                        procedureId: "GetPeepById",
-                        parameters: request
-                    );
+                    var result = await Data.Peeps.GetAsync(id: request.Id);
 
                     return new QueryResponse
                     {
                         Successful = true,
                         Message = "Data retrieved successfully.",
-                        Result = results
+                        Result = result
                     };
                 }
                 catch (System.Exception e)
