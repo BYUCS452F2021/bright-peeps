@@ -10,13 +10,13 @@ using Microsoft.Extensions.Logging;
 namespace BrightPeeps.Api.Commands.Works {
     public static class InsertWork {
         public sealed class Request : IRequest<QueryResponse> {
-            public int PeepId { get; set; }
+            public string PeepId { get; set; }
             public string WorkType { get; set; }
             public string WorkDesc { get; set; }
             public string WorkUrl { get; set; }
             public string WorkTitle { get; set; }
 
-            public Request(int peepId, string workType, string workDesc, string workUrl, string workTitle) {
+            public Request(string peepId, string workType, string workDesc, string workUrl, string workTitle) {
                 this.PeepId = peepId;
                 this.WorkType = workType;
                 this.WorkDesc = workDesc;

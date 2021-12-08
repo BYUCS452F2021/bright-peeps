@@ -45,7 +45,7 @@ namespace BrightPeeps.Api.Controllers
         }
 
         [HttpGet("/work/id/{id}")]
-        public async Task<IActionResult> GetWorkById(int id) {
+        public async Task<IActionResult> GetWorkById(string id) {
             var result = await Mediator.Send(new GetWorkById.Request(id));
 
             if (result.Successful) {
@@ -56,7 +56,7 @@ namespace BrightPeeps.Api.Controllers
         }
 
         [HttpGet("/work/peepId/{peepId}")]
-        public async Task<IActionResult> GetWorksByPeepId(int peepId) {
+        public async Task<IActionResult> GetWorksByPeepId(string peepId) {
             var result = await Mediator.Send(new GetWorksByPeepId.Request(peepId));
 
             if (result.Successful) {
@@ -69,7 +69,7 @@ namespace BrightPeeps.Api.Controllers
         //POST -
 
         [HttpPost]
-        public async Task<IActionResult> InsertWork(int peepId, string workType, string workDesc, string workUrl, string workTitle) {
+        public async Task<IActionResult> InsertWork(string peepId, string workType, string workDesc, string workUrl, string workTitle) {
             var result = await Mediator.Send(new InsertWork.Request(peepId, workType, workDesc, workUrl, workTitle));
 
             if (result.Successful) {
@@ -82,7 +82,7 @@ namespace BrightPeeps.Api.Controllers
         //PUT -
 
         [HttpPut]
-        public async Task<IActionResult> UpdateWork(int id, int peepId, string workType, string workDesc, string workUrl, string workTitle) {
+        public async Task<IActionResult> UpdateWork(string id, string peepId, string workType, string workDesc, string workUrl, string workTitle) {
             var result = await Mediator.Send(new UpdateWork.Request(id, peepId, workType, workDesc, workUrl, workTitle));
 
             if (result.Successful) {
@@ -95,7 +95,7 @@ namespace BrightPeeps.Api.Controllers
         //DELETE - RemoveWork(int id)
 
         [HttpDelete("/work/id/{id}")]
-        public async Task<IActionResult> RemoveWorkById(int id) {
+        public async Task<IActionResult> RemoveWorkById(string id) {
             var result = await Mediator.Send(new RemoveWorkById.Request(id));
 
             if (result.Successful) {
@@ -106,7 +106,7 @@ namespace BrightPeeps.Api.Controllers
         }
 
         [HttpDelete("/work/peepId/{peepId}")]
-        public async Task<IActionResult> RemoveWorkByPeepId(int peepId) {
+        public async Task<IActionResult> RemoveWorkByPeepId(string peepId) {
             var result = await Mediator.Send(new RemoveWorksByPeepId.Request(peepId));
 
             if (result.Successful) {

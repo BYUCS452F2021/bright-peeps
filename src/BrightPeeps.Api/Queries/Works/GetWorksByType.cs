@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -11,10 +12,12 @@ namespace BrightPeeps.Api.Queries.Works
 {
     public static class GetWorksByType
     {
-        public sealed class Request : IRequest<QueryResponse> {
-            public string Type {get; set;}
+        public sealed class Request : IRequest<QueryResponse>
+        {
+            public string Type { get; set; }
 
-            public Request(string type) {
+            public Request(string type)
+            {
                 this.Type = type;
             }
         }
@@ -34,7 +37,8 @@ namespace BrightPeeps.Api.Queries.Works
             {
                 try
                 {
-                    var results = await Data.Works.GetAsync(id: request.Type);
+                    var results = (await Data.Works.GetAllAsync())
+                          .Where(w => w.WorkType.Equals(request.Type));
 
                     return new QueryResponse
                     {

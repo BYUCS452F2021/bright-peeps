@@ -10,14 +10,14 @@ using Microsoft.Extensions.Logging;
 namespace BrightPeeps.Api.Commands.Works {
     public static class UpdateWork {
         public sealed class Request : IRequest<QueryResponse> {
-            public int Id { get; set; }
-            public int PeepId { get; set; }
+            public string Id { get; set; }
+            public string PeepId { get; set; }
             public string WorkType { get; set; }
             public string WorkDesc { get; set; }
             public string WorkUrl { get; set; }
             public string WorkTitle { get; set; }
 
-            public Request(int id, int peepId, string type, string desc, string url, string title) {
+            public Request(string id, string peepId, string type, string desc, string url, string title) {
                 Id = id;
                 PeepId = peepId;
                 WorkType = type;

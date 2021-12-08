@@ -7,37 +7,49 @@ using BrightPeeps.Data.MongoDB;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace BrightPeeps.Api.Commands.Works {
-    public static class RemoveWorkById {
-        public sealed class Request : IRequest<QueryResponse> {
-            public int Id { get; set; }
+namespace BrightPeeps.Api.Commands.Works
+{
+    public static class RemoveWorkById
+    {
+        public sealed class Request : IRequest<QueryResponse>
+        {
+            public string Id { get; set; }
 
-            public Request(int id) {
+            public Request(string id)
+            {
                 this.Id = id;
             }
         }
 
-        public class Handler : IRequestHandler<Request, QueryResponse> {
+        public class Handler : IRequestHandler<Request, QueryResponse>
+        {
             private readonly MongoDBDataAccessService Data;
             private readonly ILogger<Handler> Logger;
 
-            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger) {
+            public Handler(MongoDBDataAccessService dataAccess, ILogger<Handler> logger)
+            {
                 Data = dataAccess;
                 Logger = logger;
             }
 
-            public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken) {
-                try {
+            public async Task<QueryResponse> Handle(Request request, CancellationToken cancellationToken)
+            {
+                try
+                {
                     await Data.Works.DeleteAsync(id: request.Id.ToString());
 
-                    return new QueryResponse {
+                    return new QueryResponse
+                    {
                         Successful = true,
                         Message = "Data retrieved successfully."
                     };
-                } catch (System.Exception e) {
+                }
+                catch (System.Exception e)
+                {
                     Logger?.LogError($"Could not retrieve data from database. Error was {e}");
 
-                    return new QueryResponse {
+                    return new QueryResponse
+                    {
                         Successful = false,
                         Message = "Could not retrieve data from database. Check logs for more details.",
                         Result = default
