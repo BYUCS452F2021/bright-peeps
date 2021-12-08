@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -33,12 +34,9 @@ namespace BrightPeeps.Api.Commands.Users
             {
                 try
                 {
-                    await Data.Users.DeleteAsync(
-                        new Data.MongoDB.Models.UserData
-                        {
-                            Username = request.Username
-                        }
-                    );
+                    var toDelete = (await Data.Users.GetAllAsync())
+                       .Where(u => u.Username.Equals(request.Username)).First();
+                    await Data.Users.DeleteAsync(toDelete.Id);
 
                     return new CommandResponse
                     {

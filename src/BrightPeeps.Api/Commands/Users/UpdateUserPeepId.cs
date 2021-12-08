@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
@@ -33,11 +34,15 @@ namespace BrightPeeps.Api.Commands.Users
             {
                 try
                 {
+                    var toUpdate = (await Data.Users.GetAllAsync())
+                       .Where(u => u.Username.Equals(request.Model.Username)).FirstOrDefault();
                     await Data.Users.UpdateAsync(
                         new Data.MongoDB.Models.UserData
                         {
+                            Id = toUpdate.Id,
+                            PeepID = toUpdate.PeepID,
                             Username = request.Model.Username,
-                            PeepID = request.Model.PeepID,
+                            Password = toUpdate.Password,
                         }
                     );
 
