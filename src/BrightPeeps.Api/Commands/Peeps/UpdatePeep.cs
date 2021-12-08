@@ -14,7 +14,7 @@ namespace BrightPeeps.Api.Commands.Peeps
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
             public string FirstName { get; set; }
             public string MiddleName { get; set; }
             public string LastName { get; set; }
@@ -53,6 +53,7 @@ namespace BrightPeeps.Api.Commands.Peeps
                     await Data.Peeps.UpdateAsync(
                         new BrightPeeps.Data.MongoDB.Models.PeepData
                         {
+                            Id = request.Id,
                             FirstName = request.FirstName,
                             MiddleName = request.MiddleName,
                             LastName = request.LastName,
