@@ -28,7 +28,7 @@ namespace BrightPeeps.Api.Commands.Peeps
             {
                 try
                 {
-                    await Data.Peeps.Collection.DeleteMany();
+                    await Data.Peeps.Collection.DeleteManyAsync("{}");
 
                     return new QueryResponse
                     {

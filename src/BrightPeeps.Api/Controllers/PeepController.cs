@@ -57,7 +57,7 @@ namespace Vas.Api.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetPeepById(string Id)
         {
-            return Ok(await Mediator.Send(new GetPeepById.Request { Id = int.Parse(Id) }));
+            return Ok(await Mediator.Send(new GetPeepById.Request { Id = Id }));
         }
 
         [HttpPut]
