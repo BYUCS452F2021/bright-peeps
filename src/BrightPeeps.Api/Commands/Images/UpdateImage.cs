@@ -35,7 +35,7 @@ namespace BrightPeeps.Api.Commands.Images
                         new BrightPeeps.Data.MongoDB.Models.ImageData
                         {
                             Id = request.Model.Id,
-                            PeepId = request.Model.Id,
+                            PeepId = request.Model.PeepId,
                             Title = request.Model.Title,
                             ImageUrl = request.Model.ImageUrl,
                             Caption = request.Model.Caption,

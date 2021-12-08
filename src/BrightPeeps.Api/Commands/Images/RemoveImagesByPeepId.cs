@@ -1,11 +1,13 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
-using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 using BrightPeeps.Data.MongoDB;
+using BrightPeeps.Data.MongoDB.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 namespace BrightPeeps.Api.Commands.Images
 {
@@ -33,9 +35,13 @@ namespace BrightPeeps.Api.Commands.Images
                 {
                     // Mongo Driver parses the json we pass here and deletes all images that match
                     // the definition.
-                    await Data.Images.Collection.DeleteManyAsync(
-                        filter: $"{{ peepId : '{request.PeepId}' }}"
-                    );
+                    var toDelete = (await Data.Images.GetAllAsync())
+                       .Where(i => i.PeepId.Equals(request.PeepId));
+
+                    foreach (var img in toDelete)
+                    {
+                        await Data.Images.DeleteAsync(img.Id);
+                    }
 
                     return new CommandResponse
                     {

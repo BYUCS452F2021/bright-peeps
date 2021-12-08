@@ -1,11 +1,14 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BrightPeeps.Api.Utils;
-using BrightPeeps.Core.Models;
 using BrightPeeps.Core.Services;
 using BrightPeeps.Data.MongoDB;
+using BrightPeeps.Data.MongoDB.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace BrightPeeps.Api.Queries.Images
 {
@@ -31,10 +34,8 @@ namespace BrightPeeps.Api.Queries.Images
             {
                 try
                 {
-                    var results = await Data.Images.Collection
-                        .FindAsync<BrightPeeps.Data.MongoDB.Models.ImageData>(
-                        filter: $"{{ peepId : {request.PeepId} }}"
-                    );
+                    var results = (await Data.Images.GetAllAsync())
+                        .Where(i => i.PeepId.Equals(request.PeepId));
 
                     return new QueryResponse
                     {

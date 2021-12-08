@@ -51,7 +51,7 @@ namespace Vas.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await Mediator.Send(new RemoveImageById.Request { Id = int.Parse(id) }));
+            return Ok(await Mediator.Send(new RemoveImageById.Request { Id = id }));
         }
 
         [HttpDelete("peep/{peepId}")]

@@ -13,7 +13,7 @@ namespace BrightPeeps.Api.Commands.Images
     {
         public sealed class Request : IRequest<CommandResponse>
         {
-            public int Id { get; init; }
+            public string Id { get; init; }
         }
 
         public class Handler : IRequestHandler<Request, CommandResponse>
@@ -31,7 +31,7 @@ namespace BrightPeeps.Api.Commands.Images
             {
                 try
                 {
-                    await Data.Images.DeleteAsync(id: request.Id.ToString());
+                    await Data.Images.DeleteAsync(id: request.Id);
 
                     return new CommandResponse
                     {
